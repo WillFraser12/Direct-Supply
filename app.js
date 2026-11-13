@@ -9,7 +9,7 @@ const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const PHASES=["EYFS","Primary","Secondary","Sixth form","SEN"];
 const WD=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 const YEARS=["Nursery","Reception",...Array.from({length:13},(_,i)=>"Year "+(i+1))];
-const PLAN={monthly:{label:"Monthly",price:"£20 / month"},yearly:{label:"Yearly",price:"£150 / year"}};
+const PLAN={monthly:{label:"Monthly",price:"£20 / month"},yearly:{label:"Yearly",price:"£199 / year"}};
 const CHECKS=[["id","ID and right to work"],["qts","Teacher registration"],["dbs","Criminal record check"],["refs","Two references"]];
 const ROLES=["Headteacher","Deputy or assistant head","School business manager","Office manager","Cover or cover supervisor manager","Other"];
 const REGIONS=["London","South East","South West","East of England","East Midlands","West Midlands","Yorkshire and the Humber","North West","North East","Wales","Scotland","Northern Ireland"];
@@ -269,7 +269,7 @@ function renderAccount(){
   el.innerHTML=`<div class="page-head"><h1>Set up your account</h1><p>Signed in as ${esc(S.session.user.email)}. Tell us who you are. You can't change this later.</p></div>
     <div class="roles">
       <button class="role" data-role="school"><span class="ico">${ICON.school}</span><h2>I'm a school</h2><p>Free for schools.</p><ul><li>See teachers' phone and email</li><li>Book cover and post vacancies</li><li>Verified against official school records</li></ul><span class="go">Set up school account →</span></button>
-      <button class="role" data-role="teacher"><span class="ico">${ICON.teacher}</span><h2>I'm a supply teacher</h2><p>£20 a month or £150 a year.</p><ul><li>Keep your whole day rate</li><li>Set your own days and rate, and apply for vacancies</li><li>Get a verified badge schools trust</li></ul><span class="go">Set up teacher account →</span></button>
+      <button class="role" data-role="teacher"><span class="ico">${ICON.teacher}</span><h2>I'm a supply teacher</h2><p>£20 a month or £199 a year.</p><ul><li>Keep your whole day rate</li><li>Set your own days and rate, and apply for vacancies</li><li>Get a verified badge schools trust</li></ul><span class="go">Set up teacher account →</span></button>
     </div>${signOutRow()}`}
 const signOutRow=()=>`<p class="small muted" style="margin-top:20px">Signed in as ${esc(S.session?.user?.email||"")}. <button class="btn link small" data-signout>Sign out</button></p>`;
 
@@ -473,9 +473,9 @@ function planPanel(t){
     <div><h2>Choose a plan</h2><p class="sub">Pay securely with Stripe. Your profile goes live to schools as soon as payment goes through.</p></div>
     <div class="plans">
       <div class="plan" style="cursor:default"><span class="eyebrow">Monthly</span><span class="amt">£20<small> / month</small></span><span class="hint">Cancel any time.</span><button class="btn secondary" style="margin-top:8px" data-subscribe="monthly">Choose monthly</button></div>
-      <div class="plan" style="cursor:default;border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)"><span class="eyebrow">Yearly</span><span class="amt">£150<small> / year</small></span><span class="badge b-free" style="justify-self:start">Save £90</span><button class="btn" style="margin-top:8px" data-subscribe="yearly">Choose yearly</button></div>
+      <div class="plan" style="cursor:default;border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)"><span class="eyebrow">Yearly</span><span class="amt">£199<small> / year</small></span><span class="badge b-free" style="justify-self:start">Save £41</span><button class="btn" style="margin-top:8px" data-subscribe="yearly">Choose yearly</button></div>
     </div>
-    <div class="calc"><div><span>Example day rate</span><b>£160</b></div><div><span>190 school days</span><b>£30,400</b></div><div><span>Yearly plan</span><b>−£150</b></div><div class="tot"><span>You keep</span><b>£30,250</b></div></div>
+    <div class="calc"><div><span>Example day rate</span><b>£160</b></div><div><span>190 school days</span><b>£30,400</b></div><div><span>Yearly plan</span><b>−£199</b></div><div class="tot"><span>You keep</span><b>£30,201</b></div></div>
   </div>`}
 async function startCheckout(plan,btn){
   btn.disabled=true;const old=btn.textContent;btn.textContent="Opening checkout…";
@@ -713,7 +713,7 @@ const vBadge=id=>{const v=vOf(id);return v?.status==="verified"?`<span class="ba
 function renderAdmin(){
   if(!S.isAdmin)return;
   const[pendS,pendT]=adminCounts();const live=S.teachers.filter(t=>isLive(t.id));
-  const mrr=live.reduce((a,t)=>a+(S.subs[t.id]?.plan==="yearly"?150/12:20),0);
+  const mrr=live.reduce((a,t)=>a+(S.subs[t.id]?.plan==="yearly"?199/12:20),0);
   $("#stats").innerHTML=[["Schools to verify",pendS],["Teachers to verify",pendT],["Live teachers",live.length],["Monthly income","£"+mrr.toFixed(0)]].map(([k,v])=>`<div class="stat"><span class="eyebrow">${k}</span><b>${v}</b></div>`).join("");
   document.querySelectorAll("[data-atab]").forEach(b=>b.setAttribute("aria-selected",b.dataset.atab===S.aTab));
   const el=$("#adminBody");
