@@ -280,6 +280,7 @@ function renderAuth(el){
     <div class="f"><label for="aEmail">Email</label><input class="input" id="aEmail" type="email" autocomplete="email" required></div>
     ${reset?"":`<div class="f"><label for="aPass">Password</label><input class="input" id="aPass" type="password" autocomplete="${up?"new-password":"current-password"}" minlength="8" required>${up?`<span class="hint">At least 8 characters.</span>`:""}</div>`}
     <button class="btn lg" type="submit" id="aSubmit">${reset?"Send reset link":up?"Create account":"Sign in"}</button>
+    ${up?`<p class="small muted">By creating an account you agree to our <a href="terms.html" target="_blank" rel="noopener">terms of use</a> and confirm you've read our <a href="privacy.html" target="_blank" rel="noopener">privacy policy</a>.</p>`:""}
     <p class="small" id="aStatus" role="status"></p>
     <p class="small muted">${reset?`<button type="button" class="btn link small" data-auth="signin">Back to sign in</button>`:up?`Already have an account? <button type="button" class="btn link small" data-auth="signin">Sign in</button>`:`New here? <button type="button" class="btn link small" data-auth="signup">Create an account</button> · <button type="button" class="btn link small" data-auth="reset">Forgotten password?</button>`}</p>
   </form>`}
